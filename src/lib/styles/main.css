@@ -1,3 +1,173 @@
+:root {
+	--white: white;
+	--black: black;
+    --superdarkgray: #0c0c0c;
+	--gray: #121213;
+	--middleGray: #3f3f44;
+	--lighterMiddleGray: #696970;
+	--lightGray: #9b9ba3;
+	--yellow: #FFE629;
+	--yellowTransparent: #FFE62927;
+	--yellowSheer: #FFE6290c;
+}
+
 * {
-    font-family: sans-serif;
+	color: var(--white);
+	font-family: 'JetBrains Mono';
+    z-index: 10 !important;
+}
+
+h1,
+h1 *,
+h2,
+h2 *,
+h3,
+h3 *,
+h4,
+h4 *,
+h5,
+h5 * {
+	font-family: "Space Grotesk";
+    z-index: 100 !important;
+    position: relative;
+    color: var(--yellow);
+}
+
+h1 {
+	width: 100%;
+	text-align: center;
+	font-size: 50px;
+	margin-top: 150px;
+}
+
+h2 {
+	font-size: 40px;
+	width: 100%;
+	text-align: center;
+}
+
+html,
+body {
+	background: var(--black);
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	width: 100%;
+	overflow-x: hidden;
+    overflow-y:visible;
+	position: relative;
+}
+
+body {
+        z-index: 0;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+	background-size: 35px 35px;
+	background-image:
+		linear-gradient(to right, var(--superdarkgray) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--superdarkgray) 1px, transparent 1px);
+	background-position: center;
+    
+}
+
+.color-yellow {
+	color: var(--yellow);
+}
+
+.home-title {
+	font-size: 65px;
+	text-align: center;
+	width: calc(100vw - 100px);
+	height: fit-content;
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 50px 0;
+}
+
+@media screen and (max-width: 1200px) and (min-width: 900px) {
+	.home-title {
+		font-size: min(5vw, 65px);
+	}
+}
+
+@media screen and (max-width: 900px) and (min-width: 700px) {
+	.home-title {
+		font-size: 65px;
+		text-align: left;
+		hyphens: manual;
+	}
+}
+
+@media screen and (max-width: 700px) {
+	.home-title {
+		font-size: min(10vw, 65px);
+		text-align: left;
+		hyphens: manual;
+	}
+}
+
+.coverImage {
+	width: 100vw;
+}
+
+.projectTags {
+	width: fit-content;
+	margin: auto;
+	display: flex;
+	align-items: center;
+}
+
+.postContent {
+	max-width: min(1000px, 80vw);
+	margin: auto;
+}
+
+.postMetadata {
+	color: var(--lightGray);
+	font-size: 20px;
+	width: 100%;
+	text-align: center;
+	margin: auto;
+	margin-bottom: 25px;
+}
+
+pre {
+	overflow-x: scroll;
+}
+
+.readButton {
+	text-align: center;
+	width: 100%;
+}
+
+.icon-button {
+	cursor: pointer;
+}
+.viewProjectButton {
+	width: fit-content;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	background: var(--yellow);
+	padding: 6px 10px;
+	margin-top: 15px;
+}
+.viewProjectButton * {
+	color: black;
+	text-decoration: none;
+}
+article a {
+	color: var(--yellow);
+}
+article img {
+	display: block;
+	margin: 20px auto;
+}
+.gallery img {
+	max-width: 100%;
 }
