@@ -1,6 +1,11 @@
 var glob = require("glob")
 var fs = require('fs')
 
+//get summary file in docs folder
+glob("docs/SUMMARY.md", function (er, files) {
+  console.log(files)
+}
+)
 // options is optional
 glob("docs/**/*", 
 {mark: true}, function (er, files) {
@@ -11,6 +16,5 @@ glob("docs/**/*",
   files.forEach(e => {
     //use fs to see if it is a directory
     console.log(fs.statSync(e).isDirectory() + " " + e)
-    console.log(JSON.stringify(e.matchAll("\&[0-9]\&")))
   })
 })
