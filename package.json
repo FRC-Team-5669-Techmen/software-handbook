@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"convert": "node convert.cjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
@@ -16,6 +17,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"glob": "^8.0.3",
 		"svelte-icons-pack": "^2.0.0"
 	}
 }
