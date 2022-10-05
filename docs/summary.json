@@ -43,6 +43,14 @@
               "../docs/electrical/getting-started/installation.md"
             ]
           ]
+        },
+        "Guides": {
+          "pages": [
+            [
+              "Overview",
+              "../docs/electrical/guides/overview.md"
+            ]
+          ]
         }
       }
     },

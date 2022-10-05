@@ -45,6 +45,14 @@
               "/electrical/getting-started/installation"
             ]
           ]
+        },
+        "Guides": {
+          "pages": [
+            [
+              "Overview",
+              "/electrical/guides/overview"
+            ]
+          ]
         }
       }
     },
