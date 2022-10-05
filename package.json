@@ -18,6 +18,9 @@
 	"type": "module",
 	"dependencies": {
 		"glob": "^8.0.3",
+		"markdown-it": "^13.0.1",
+		"parse-md": "2.0",
+		"simple-markdown": "^0.7.3",
 		"svelte-icons-pack": "^2.0.0"
 	}
 }
