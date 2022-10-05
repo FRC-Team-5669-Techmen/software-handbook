@@ -1,5 +1,7 @@
 <script>
 	import SearchButton from "./SearchButton.svelte";
+	import summary from "../summary.json";
+	console.log(summary);
 	export let y = 0;
 	export let breakpoint = 0;
 	export let open = false;
@@ -8,24 +10,24 @@
 <div id="sidebar" class={open ? "open" : ""}>
 	<div id="content">
 		<div id="inner">
-			asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />
-			asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />
-			asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br />asdf<br
-			/>asdf<br />asdf<br />asdf<br />asdf<br />
+			{#each summary.pages as link}
+				<a href={link[1]}>{link[0]}</a>
+			{/each}
+			{#each Object.entries(summary.categories) as [name, content]}
+				<h2>{name}</h2>
+				{#each content.pages as surfacePage}
+					<a href={surfacePage[1]}>{surfacePage[0]}</a>
+				{/each}
+				{#each Object.entries(content.sections) as [title, inner]}
+					<h3>{title}</h3>
+					{#each inner.pages as page}
+						<a href={page[1]}>{page[0]}</a>
+					{/each}
+				{/each}
+			{/each}
 		</div>
 	</div>
-	{#if y < breakpoint}
+	{#if y <= breakpoint}
 		<SearchButton className="inSidebar" {breakpoint} {y} />
 	{/if}
 </div>

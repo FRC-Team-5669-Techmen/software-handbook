@@ -1,0 +1,50 @@
+{
+  "pages": [
+    [
+      "Introduction",
+      "../docs/README.md"
+    ]
+  ],
+  "categories": {
+    "Software": {
+      "pages": [
+        [
+          "Overview",
+          "../docs/software/README.md"
+        ]
+      ],
+      "sections": {
+        "Getting Started": {
+          "pages": [
+            [
+              "Installation",
+              "../docs/software/getting-started/installation.md"
+            ],
+            [
+              "GitHub",
+              "../docs/software/getting-started/github.md"
+            ]
+          ]
+        }
+      }
+    },
+    "Electrical": {
+      "pages": [
+        [
+          "Overview",
+          "../docs/electrical/README.md"
+        ]
+      ],
+      "sections": {
+        "Getting Started": {
+          "pages": [
+            [
+              "Installation",
+              "../docs/electrical/getting-started/installation.md"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

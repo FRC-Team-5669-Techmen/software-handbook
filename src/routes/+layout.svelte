@@ -24,7 +24,7 @@
 		<slot />
 		<Footer />
 	</main>
-	{#if y < breakpoint}
+	{#if y <= breakpoint}
 		<Sidebar {breakpoint} {y} {open} />
 	{/if}
 </div>
@@ -34,6 +34,7 @@
 	#container {
 		width: min(1300px, 100vw);
 		height: fit-content;
+		min-height: 100vh;
 		display: flex;
 		margin: auto;
 	}

@@ -1,0 +1,52 @@
+{
+  "pages": [
+    [
+      "Introduction",
+      "/"
+    ]
+  ],
+  "categories": {
+    "Software": {
+      "pages": [
+        [
+          "Overview",
+          "/software/",
+          null
+        ]
+      ],
+      "sections": {
+        "Getting Started": {
+          "pages": [
+            [
+              "Installation",
+              "/software/getting-started/installation"
+            ],
+            [
+              "GitHub",
+              "/software/getting-started/github"
+            ]
+          ]
+        }
+      }
+    },
+    "Electrical": {
+      "pages": [
+        [
+          "Overview",
+          "/electrical/",
+          null
+        ]
+      ],
+      "sections": {
+        "Getting Started": {
+          "pages": [
+            [
+              "Installation",
+              "/electrical/getting-started/installation"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}
