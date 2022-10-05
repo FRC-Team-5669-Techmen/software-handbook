@@ -56,6 +56,9 @@
         element.height = element.content.getBoundingClientRect().height + "px";
         setCategory(capitalizeFirstLetter(pathName.split("/")[1]) || null);
         heightTransition = "opacity 0.3s, height 0.3s";
+		setTimeout(() => {
+			
+		}, 100);
       }
     }
   });
