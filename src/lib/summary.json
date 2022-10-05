@@ -47,6 +47,26 @@
           ]
         }
       }
+    },
+    "Mechanical": {
+      "pages": [
+        [
+          "Overview",
+          "/mechanical/",
+          null
+        ]
+      ],
+      "sections": {}
+    },
+    "Design": {
+      "pages": [
+        [
+          "Overview",
+          "/design/",
+          null
+        ]
+      ],
+      "sections": {}
     }
   }
 }

@@ -45,6 +45,24 @@
           ]
         }
       }
+    },
+    "Mechanical": {
+      "pages": [
+        [
+          "Overview",
+          "../docs/mechanical/README.md"
+        ]
+      ],
+      "sections": {}
+    },
+    "Design": {
+      "pages": [
+        [
+          "Overview",
+          "../docs/design/README.md"
+        ]
+      ],
+      "sections": {}
     }
   }
 }
