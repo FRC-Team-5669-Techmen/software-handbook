@@ -31,12 +31,12 @@ h5 * {
 	z-index: 100 !important;
 	position: relative;
 	color: var(--yellow);
+	margin-top: 0;
 }
 
 h1 {
 	width: 100%;
 	font-size: 50px;
-	margin-top: 150px;
 }
 
 h2 {

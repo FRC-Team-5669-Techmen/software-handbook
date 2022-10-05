@@ -13,6 +13,14 @@
 		console.log("asdf");
 		open = !open;
 	}
+    import { page } from '$app/stores';
+	let pathName = ""
+	page.subscribe(() => {
+		pathName = $page.url.pathname.split("/");
+		pathName.pop()
+		pathName = pathName.join("/")
+		console.log(pathName);
+	});
 </script>
 
 <svelte:window bind:innerWidth={y} />
@@ -21,6 +29,7 @@
 		<Sidebar {breakpoint} {y} {open} />
 	{/if}
 	<main class="main">
+		<p style="color: var(--lightGray); font-weight: bold; margin-bottom: 0">{pathName}</p>
 		<slot />
 		<Footer />
 	</main>
@@ -54,6 +63,7 @@
 			linear-gradient(to bottom, var(--superdarkgray) 1px, transparent 1px);
 		background-position: center; /**inset box shadow*/
 		box-shadow: 0 0 50px inset var(--black);
+		padding-top: 120px;
 	}
 	@media (max-width: 1100px) {
 		.main {

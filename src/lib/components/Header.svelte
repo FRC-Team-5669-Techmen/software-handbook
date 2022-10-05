@@ -82,6 +82,7 @@
 		width: fit-content;
 		text-align: left;
 		margin-left: 25px;
+		margin-top: 1em;
 	}
 	#interactables {
 		margin-left: auto;
