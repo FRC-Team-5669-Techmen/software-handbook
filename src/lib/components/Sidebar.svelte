@@ -237,8 +237,7 @@
     width: 300px;
     height: calc(100vh - 65px);
     flex-shrink: 0;
-    overflow-x: hidden;
-    overflow: hidden;
+    overflow: hidden !important;
   }
   #sidebar * {
     display: block;
@@ -254,6 +253,7 @@
     padding: 30px;
     padding-top: 30px;
     padding-bottom: 70px;
+	overflow-x: hidden;
   }
   @media screen and (max-width: 1100px) {
     #content {
