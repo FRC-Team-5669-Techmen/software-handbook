@@ -56,9 +56,7 @@
         element.height = element.content.getBoundingClientRect().height + "px";
         setCategory(capitalizeFirstLetter(pathName.split("/")[1]) || null);
         heightTransition = "opacity 0.3s, height 0.3s";
-		setTimeout(() => {
-			
-		}, 100);
+        setTimeout(() => {}, 100);
       }
     }
   });
@@ -80,6 +78,7 @@
           id={categories[name].open ? "active-category" : ""}
           class="category-label"
           on:click={() => setCategory(name)}
+		  tabindex={(categories[name].open ? "-1" : "")}
         >
           <Icon
             src={categories[name].icon}
@@ -101,7 +100,8 @@
             <a
               class={"inner-margin " +
                 (surfacePage[1] == pathName + "/" ? "link-active" : "")}
-              href={surfacePage[1]}>{surfacePage[0]}</a
+              href={surfacePage[1]}
+			  tabindex={(categories[name].open ? "" : "-1")}>{surfacePage[0]}</a
             >
           {/each}
           {#each Object.entries(content.sections) as [title, inner]}
@@ -111,7 +111,8 @@
                 <a
                   class={"innerPage " +
                     (page[1] == pathName ? "link-active" : "")}
-                  href={page[1]}>{page[0]}</a
+                  href={page[1]}
+				  tabindex={(categories[name].open ? "" : "-1")}>{page[0]}</a
                 >
               {/each}
             </div>
@@ -152,14 +153,15 @@
     font-weight: bolder;
     margin-left: -7px;
     padding-left: 7px !important;
-	cursor: pointer;
+    cursor: pointer;
   }
   button {
-	cursor: pointer;
-}
-  a:hover {
+    cursor: pointer;
+  }
+  a:hover, a:focus {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 5px;
+	outline: none;
   }
   h3 {
     margin-top: 15px;
@@ -177,6 +179,10 @@
     font-weight: bolder;
     width: 100%;
     height: 50px;
+  }
+  .category-label:hover *, .category-label:focus * {
+    text-decoration: underline;
+    text-decoration-color: var(--yellow);
   }
   .category-content {
     overflow: hidden;
