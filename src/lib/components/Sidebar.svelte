@@ -4,7 +4,7 @@
 	import Icon from "svelte-icons-pack/Icon.svelte";
 	import RiDeviceCpuLine from "svelte-icons-pack/ri/RiDeviceCpuLine";
 	import RiDesignCompasses2Line from "svelte-icons-pack/ri/RiDesignCompasses2Line";
-	import RiSystemSettings5Line from "svelte-icons-pack/ri/RiSystemSettings5Line";
+	import RiSystemSettings5Line from "svelte-icons-pack/ri/RiSystemSettings5Fill";
 	import RiDevelopmentCodeSSlashFill from "svelte-icons-pack/ri/RiDevelopmentCodeSSlashFill";
 	console.log(summary);
 	export let y = 0;
