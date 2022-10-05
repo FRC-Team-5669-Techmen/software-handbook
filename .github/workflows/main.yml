@@ -37,7 +37,7 @@ jobs:
           git config --global user.email 'npinales00@gmail.com'
       - name: commit changed files
         run: git commit -m "Auto update routes from docs"
-      - name: fetch from master
-        run: git fetch origin master
+      - name: fetch from main
+        run: git fetch origin main
       - name: push code to master
-        run: git push origin HEAD:master
+        run: git push origin HEAD:main
