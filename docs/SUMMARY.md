@@ -15,7 +15,11 @@
 
 ## Getting Started
 
-- [Installation](../docs/electrical/getting-started/installation.md)
+- [Installation](../docs/electrical/getting-started/installation.md
+
+## Guides
+- [Overview](../docs/electrical/guides/overview.md)
+
 
 # Mechanical
 
@@ -24,3 +28,4 @@
 # Design
 
 [Overview](../docs/design/README.md)
+
