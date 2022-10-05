@@ -32,7 +32,7 @@ jobs:
       - name: stage changed files
         run: git add .
       - name: who am i
-        run:
+        run: |
           git config --global user.name 'fakedazon'
           git config --global user.email 'npinales00@gmail.com'
       - name: commit changed files
