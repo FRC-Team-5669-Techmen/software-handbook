@@ -204,3 +204,10 @@ main {
 #sidebar {
 	z-index: 100000;
 }
+.categoryIcon {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left:0;
+	
+}
