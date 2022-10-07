@@ -6,7 +6,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"convert": "node convert.cjs"
+		"convert": "node shloop.cjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
@@ -17,6 +17,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@root/walk": "^1.1.0",
 		"glob": "^8.0.3",
 		"mark-twain": "^2.0.3",
 		"markdown-it": "^13.0.1",

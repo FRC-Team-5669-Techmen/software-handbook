@@ -6,75 +6,128 @@
     ]
   ],
   "categories": {
-    "Software": {
+    "design": {
       "pages": [
         [
           "Overview",
-          "/software/",
-          null
+          "/design/"
+        ]
+      ],
+      "sections": {}
+    },
+    "electrical": {
+      "pages": [
+        [
+          "Overview",
+          "/electrical/"
         ]
       ],
       "sections": {
-        "Getting Started": {
+        "getting-started": {
           "pages": [
-            [
-              "Installation",
-              "/software/getting-started/installation"
-            ],
             [
               "GitHub",
-              "/software/getting-started/github"
-            ]
-          ]
-        }
-      }
-    },
-    "Electrical": {
-      "pages": [
-        [
-          "Overview",
-          "/electrical/",
-          null
-        ]
-      ],
-      "sections": {
-        "Getting Started": {
-          "pages": [
+              "/electrical/getting-started/github"
+            ],
             [
-              "Installation",
+              "Overview",
               "/electrical/getting-started/installation"
             ]
           ]
         },
-        "Guides": {
+        "guides": {
           "pages": [
             [
               "Overview",
               "/electrical/guides/overview"
             ]
           ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "/electrical/reference/overview"
+            ]
+          ]
         }
       }
     },
-    "Mechanical": {
+    "mechanical": {
       "pages": [
         [
           "Overview",
-          "/mechanical/",
-          null
+          "/mechanical/"
         ]
       ],
-      "sections": {}
+      "sections": {
+        "getting-started": {
+          "pages": [
+            [
+              "GitHub",
+              "/mechanical/getting-started/github"
+            ],
+            [
+              "Installation",
+              "/mechanical/getting-started/installation"
+            ]
+          ]
+        },
+        "guides": {
+          "pages": [
+            [
+              "Overview",
+              "/mechanical/guides/overview"
+            ]
+          ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "/mechanical/reference/overview"
+            ]
+          ]
+        }
+      }
     },
-    "Design": {
+    "software": {
       "pages": [
         [
           "Overview",
-          "/design/",
-          null
+          "/software/"
         ]
       ],
-      "sections": {}
+      "sections": {
+        "getting-started": {
+          "pages": [
+            [
+              "GitHub",
+              "/software/getting-started/github"
+            ],
+            [
+              "Installation",
+              "/software/getting-started/installation"
+            ]
+          ]
+        },
+        "guides": {
+          "pages": [
+            [
+              "Overview",
+              "/software/guides/overview"
+            ]
+          ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "/software/reference/overview"
+            ]
+          ]
+        }
+      }
     }
   }
 }
