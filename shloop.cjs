@@ -24,9 +24,21 @@ Walk.walk("./docs/", dirWalk).then(function () {
 			console.log("asdf");
 		});
 	});
+	Walk.walk("./docs/", fileWalkNormalSummary).then(function () {
+		console.log("asdf");
+		fs.writeFileSync(
+			"./docs/summary.json",
+			JSON.stringify(normalSummary, null, 2)
+		);
+	});
 });
 
 var outputSummary = {
+	pages: [],
+	categories: {},
+};
+
+var normalSummary = {
 	pages: [],
 	categories: {},
 };
@@ -54,6 +66,8 @@ function dirWalk(err, pathname, dirent) {
 			};
 		}
 	}
+	// copy output summary without relation
+	normalSummary = JSON.parse(JSON.stringify(outputSummary));
 	return Promise.resolve();
 }
 function fileWalk(err, pathname, dirent) {
@@ -65,6 +79,7 @@ function fileWalk(err, pathname, dirent) {
 		.replace("docs", "");
 
 	if (dirent.isFile()) {
+		if (pathname.endsWith(".json")) return Promise.resolve();
 		var title = fs.readFileSync("./docs" + pathname, "utf8").split("\n")[1];
 		pathname = pathname.replace(".md", "").replace("README", "");
 		if (title) title = title.replace("\r", "");
@@ -105,6 +120,7 @@ function fileTransferWalk(err, pathname, dirent) {
 	pathname = pathname.replace(/\\/g, "/").replace("docs", "");
 
 	if (dirent.isFile()) {
+		if (pathname.endsWith(".json")) return Promise.resolve();
 		var title = fs.readFileSync("./docs" + pathname, "utf8").split("\n")[1];
 		var originalFile = "./docs" + pathname;
 		pathname = pathname.replace(".md", "").replace("README", "");
@@ -136,6 +152,51 @@ function fileTransferWalk(err, pathname, dirent) {
 		//remove first 3 lines & join with \n
 		file = file.slice(3).join("\n");
 		fs.writeFileSync(destFile, file);
+	}
+	return Promise.resolve();
+}
+
+function fileWalkNormalSummary(err, pathname, dirent) {
+	var Category = path.dirname(pathname).split("\\")[1] || null;
+	var Section = path.dirname(pathname).split("\\")[2] || null;
+	pathname = pathname
+		.replace(/\$[0-9]+\$/, "")
+		.replace(/\\/g, "/")
+		.replace("docs", "");
+
+	if (dirent.isFile()) {
+		if (pathname.endsWith(".json")) return Promise.resolve();
+		var title = fs.readFileSync("./docs" + pathname, "utf8").split("\n")[1];
+		pathname = "./docs" + pathname;
+		if (title) title = title.replace("\r", "");
+		console.log(title);
+		var match = pathname.match(/\$[0-9]+\$/) || null;
+		var index = match ? parseInt(match[0].replace("$", "")) || null : null;
+		if (Category && !Section) {
+			if (index) {
+				normalSummary.categories[Category].pages[index] = [title, pathname];
+			} else {
+				normalSummary.categories[Category].pages.push([title, pathname]);
+			}
+		} else if (Category && Section) {
+			if (index) {
+				normalSummary.categories[Category].sections[Section].pages[index] = [
+					title,
+					pathname,
+				];
+			} else {
+				normalSummary.categories[Category].sections[Section].pages.push([
+					title,
+					pathname,
+				]);
+			}
+		} else {
+			if (index) {
+				normalSummary.pages[index] = [title, pathname];
+			} else {
+				normalSummary.pages.push([title, pathname]);
+			}
+		}
 	}
 	return Promise.resolve();
 }

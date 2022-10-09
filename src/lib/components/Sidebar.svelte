@@ -6,7 +6,10 @@
 	import RiDesignCompasses2Line from "svelte-icons-pack/ri/RiDesignCompasses2Line";
 	import RiSystemSettings5Line from "svelte-icons-pack/ri/RiSystemSettings5Fill";
 	import RiDevelopmentCodeSSlashFill from "svelte-icons-pack/ri/RiDevelopmentCodeSSlashFill";
-	console.log(summary);
+	import { supabase } from "$lib/supabaseClient.js";
+	var pages = [];
+	var categories = [];
+	var sections = [];
 	export let y = 0;
 	export let breakpoint = 0;
 	export let open = false;
@@ -16,34 +19,38 @@
 		pathName = $page.url.pathname;
 		console.log(pathName);
 	});
-	let categories = {
-		software: {
+	let categoryData = {
+		Software: {
 			icon: RiDevelopmentCodeSSlashFill,
 			open: true,
+			content: null,
 		},
-		electrical: {
+		Electrical: {
 			icon: RiDeviceCpuLine,
 			open: true,
+			content: null,
 		},
-		mechanical: {
+		Mechanical: {
 			icon: RiSystemSettings5Line,
 			open: true,
+			content: null,
 		},
-		design: {
+		Design: {
 			icon: RiDesignCompasses2Line,
 			open: true,
+			content: null,
 		},
 	};
 	function setCategory(cat) {
-		for (const key in categories) {
-			if (Object.hasOwnProperty.call(categories, key)) {
-				const element = categories[key];
-				categories[key].open = false;
+		for (const key in categoryData) {
+			if (Object.hasOwnProperty.call(categoryData, key)) {
+				const element = categoryData[key];
+				categoryData[key].open = false;
 			}
 		}
 		if (!cat) return;
 		console.log(cat);
-		categories[cat.toLowerCase()].open = true;
+		categoryData[cat].open = true;
 		console.log(cat);
 	}
 
@@ -51,15 +58,44 @@
 	let heightTransition = "";
 
 	onMount(async () => {
-		for (const key in categories) {
-			if (Object.hasOwnProperty.call(categories, key)) {
-				const element = categories[key];
-				element.height = element.content.getBoundingClientRect().height + "px";
-				setCategory(capitalizeFirstLetter(pathName.split("/")[1]) || null);
-				heightTransition = "opacity 0.3s, height 0.3s";
-				setTimeout(() => {}, 100);
-			}
-		}
+		supabase
+			.from("pages")
+			.select()
+			.order("index", { ascending: true })
+			.then(({ data, error, status }) => {
+				pages = [...data];
+				console.log(pages);
+				supabase
+					.from("categories")
+					.select()
+					.order("index", { ascending: true })
+					.then(({ data, error, status }) => {
+						categories = [...data];
+						console.log(data);
+						supabase
+							.from("sections")
+							.select()
+							.order("index", { ascending: true })
+							.then(({ data, error, status }) => {
+								sections = [...data];
+								setTimeout(() => {
+									for (const key in categoryData) {
+										if (Object.hasOwnProperty.call(categoryData, key)) {
+											const element = categoryData[key];
+											if (element.content)
+												element.height =
+													element.content.getBoundingClientRect().height + "px";
+											setCategory(
+												capitalizeFirstLetter(pathName.split("/")[1]) || null
+											);
+											heightTransition = "opacity 0.3s, height 0.3s";
+											setTimeout(() => {}, 100);
+										}
+									}
+								}, 100);
+							});
+					});
+			});
 	});
 	function capitalizeFirstLetter(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
@@ -77,52 +113,86 @@
 <div id="sidebar" class={open ? "open" : ""}>
 	<div id="content">
 		<div id="inner">
-			{#each summary.pages as link}
-				<a href={link[1]} class={link[1] == pathName ? "link-active" : ""}
-					>{link[0]}</a
-				>
+			{#each pages as page}
+				{#if (page.category == null) & (page.section == null)}
+					<a
+						href={"/" + (page.slug != "/" ? page.slug : "")}
+						class={"/" + (page.slug != "/" ? page.slug : "") == pathName
+							? "link-active"
+							: ""}>{page.title}</a
+					>
+				{/if}
 			{/each}
-			{#each Object.entries(summary.categories) as [name, content]}
+			{#each categories as category}
 				<button
-					id={categories[name].open ? "active-category" : ""}
+					id={categoryData[category.title].open ? "active-category" : ""}
 					class="category-label"
-					on:click={() => setCategory(name)}
-					tabindex={categories[name].open ? "-1" : ""}
+					on:click={() => setCategory(category.title)}
+					tabindex={categoryData[category.title].open ? "-1" : ""}
 				>
 					<Icon
-						src={categories[name].icon}
+						src={categoryData[category.title].icon}
 						color="var(--yellow)"
 						className="categoryIcon"
 					/>
-					<h1>{capitalizeFirstLetter(name)}</h1>
+					<h1>{capitalizeFirstLetter(category.title)}</h1>
 				</button>
 				<div
-					bind:this={categories[name].content}
-					style:--height={categories[name].open
-						? categories[name].height
+					bind:this={categoryData[category.title].content}
+					style:--height={categoryData[category.title].open
+						? categoryData[category.title].height
 						: "0px"}
 					style:transition={heightTransition}
 					class={"category-content " +
-						(categories[name].open ? "category-open" : "")}
+						(categoryData[category.title].open ? "category-open" : "")}
 				>
-					{#each content.pages as surfacePage}
-						<a
-							class={"inner-margin " +
-								(surfacePage[1] == pathName + "/" ? "link-active" : "")}
-							href={surfacePage[1]}
-							tabindex={categories[name].open ? "" : "-1"}>{surfacePage[0]}</a
-						>
+					{#each pages as page}
+						{#if page.category == category.id && !page.section}
+							<a
+								class={"inner-margin " +
+									("/" +
+										category.slug +
+										(page.slug != "/" ? "/" + page.slug : "") ==
+									pathName
+										? "link-active"
+										: "")}
+								href={"/" +
+									category.slug +
+									"/" +
+									(page.slug != "/" ? page.slug : "")}
+								tabindex={categoryData[category.title].open ? "" : "-1"}
+								>{page.title}</a
+							>
+						{/if}
 					{/each}
-					{#each Object.entries(content.sections) as [title, inner]}
-						<h3 class="inner-margin">{titleCase(title.replace("-", " "))}</h3>
+					{#each sections as section}
+						<h3 class="inner-margin">
+							{titleCase(section.title.replace("_", " "))}
+						</h3>
 						<div class="innerPages">
-							{#each inner.pages as page}
-								<a
-									class={"innerPage " +
-										(page[1] == pathName ? "link-active" : "")}
-									href={page[1]}
-									tabindex={categories[name].open ? "" : "-1"}>{page[0]}</a
-								>
+							{#each pages as page}
+								{#if page.category == category.id && page.section == section.id}
+									<a
+										class={"innerPage " +
+											("/" +
+												category.slug +
+												"/" +
+												section.slug +
+												"/" +
+												(page.slug != "/" ? page.slug : "") ==
+											pathName
+												? "link-active"
+												: "")}
+										href={"/" +
+											category.slug +
+											"/" +
+											section.slug +
+											"/" +
+											(page.slug != "/" ? page.slug : "")}
+										tabindex={categoryData[category.title].open ? "" : "-1"}
+										>{page.title}</a
+									>
+								{/if}
 							{/each}
 						</div>
 					{/each}

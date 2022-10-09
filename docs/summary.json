@@ -1,0 +1,133 @@
+{
+  "pages": [
+    [
+      "Introduction",
+      "./docs/README.md"
+    ]
+  ],
+  "categories": {
+    "design": {
+      "pages": [
+        [
+          "Overview",
+          "./docs/design/README.md"
+        ]
+      ],
+      "sections": {}
+    },
+    "electrical": {
+      "pages": [
+        [
+          "Overview",
+          "./docs/electrical/README.md"
+        ]
+      ],
+      "sections": {
+        "getting-started": {
+          "pages": [
+            [
+              "GitHub",
+              "./docs/electrical/getting-started/github.md"
+            ],
+            [
+              "Overview",
+              "./docs/electrical/getting-started/installation.md"
+            ]
+          ]
+        },
+        "guides": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/electrical/guides/overview.md"
+            ]
+          ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/electrical/reference/overview.md"
+            ]
+          ]
+        }
+      }
+    },
+    "mechanical": {
+      "pages": [
+        [
+          "Overview",
+          "./docs/mechanical/README.md"
+        ]
+      ],
+      "sections": {
+        "getting-started": {
+          "pages": [
+            [
+              "GitHub",
+              "./docs/mechanical/getting-started/github.md"
+            ],
+            [
+              "Installation",
+              "./docs/mechanical/getting-started/installation.md"
+            ]
+          ]
+        },
+        "guides": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/mechanical/guides/overview.md"
+            ]
+          ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/mechanical/reference/overview.md"
+            ]
+          ]
+        }
+      }
+    },
+    "software": {
+      "pages": [
+        [
+          "Overview",
+          "./docs/software/README.md"
+        ]
+      ],
+      "sections": {
+        "getting-started": {
+          "pages": [
+            [
+              "GitHub",
+              "./docs/software/getting-started/github.md"
+            ],
+            [
+              "Installation",
+              "./docs/software/getting-started/installation.md"
+            ]
+          ]
+        },
+        "guides": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/software/guides/overview.md"
+            ]
+          ]
+        },
+        "reference": {
+          "pages": [
+            [
+              "Overview",
+              "./docs/software/reference/overview.md"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}
