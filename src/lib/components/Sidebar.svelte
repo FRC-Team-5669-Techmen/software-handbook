@@ -18,6 +18,7 @@
 	page.subscribe(() => {
 		pathName = $page.url.pathname;
 		console.log(pathName);
+		open = false
 	});
 	let categoryData = {
 		Software: {
