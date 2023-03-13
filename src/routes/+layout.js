@@ -1,4 +1,4 @@
-export const prerender = true;
+export const prerender = 'auto';
 import { client } from "$lib/graphql-client";
 import { pagesQuery, categoriesQuery, sectionsQuery } from "$lib/graphql-queries";
 

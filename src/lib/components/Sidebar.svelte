@@ -77,7 +77,7 @@
             element.content.getBoundingClientRect().height + "px";
       }
     }
-    setCategory(capitalizeFirstLetter(pathName.split("/")[1]) || null);
+    setCategory(capitalizeFirstLetter(pathName.split("/")[1]) in categoryData? capitalizeFirstLetter(pathName.split("/")[1]) : null);
   });
 </script>
 
@@ -179,12 +179,12 @@
 </div>
 
 <style>
-	.category-content a {
-	  color: var(--lighterMiddleGray);
-	}
-	h3 {
-	  color: var(--lightGray)
-	}
+  .category-content a {
+    color: var(--lighterMiddleGray);
+  }
+  h3 {
+    color: var(--lightGray);
+  }
   .link-active {
     color: var(--yellow) !important;
     text-decoration: underline;
@@ -285,8 +285,11 @@
     box-sizing: border-box;
     top: 65px;
     left: 0;
-    background-image: radial-gradient(rgba(0,0,0,.55) 0px,rgba(0,0,0,.85) 2px);
-	background-size: 4px 4px;
+    background-image: radial-gradient(
+      rgba(0, 0, 0, 0.55) 0px,
+      rgba(0, 0, 0, 0.85) 2px
+    );
+    background-size: 4px 4px;
     display: flex;
     justify-content: space-between;
     align-content: flex-start;
@@ -335,8 +338,11 @@
       position: fixed;
       top: 65px;
       left: -300px;
-    background-image: radial-gradient(rgba(0,0,0,.65) 0px,rgba(0,0,0,.95) 2px);
-	background-size: 4px 4px;
+      background-image: radial-gradient(
+        rgba(0, 0, 0, 0.65) 0px,
+        rgba(0, 0, 0, 0.95) 2px
+      );
+      background-size: 4px 4px;
       box-shadow: 0 0 50px black;
       z-index: 109999999990000;
       transition: 0.3s left, 0.3s opacity;
