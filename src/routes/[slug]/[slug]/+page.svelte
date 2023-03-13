@@ -1,44 +1,38 @@
 <script>
-	import { onMount } from "svelte";
-	import { supabase } from "$lib/supabaseClient.js";
-	import { page } from "$app/stores";
-	let pathName = "";
-	page.subscribe(() => {
-		pathName = $page.url.pathname;
-		console.log(pathName);
-	});
-	var pages = [];
-	var error;
-	var categoryId = [];
-	function titleCase(str) {
-		str = str.toLowerCase();
-		str = str.split(" ");
-		for (var i = 0; i < str.length; i++) {
-			str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-		}
-		return str.join(" ");
-	}
-	onMount(async () => {
-		supabase
-			.from("categories")
-			.select("id")
-			.eq("slug", pathName.split("/")[1])
-			.then(({ data, error, status }) => {
-				categoryId = data[0].id;
-				supabase
-					.from("pages")
-					.select()
-					.eq("category", categoryId)
-					.is("section", null)
-					.eq("slug", pathName.split("/")[2])
-					.then(({ data, error, status }) => {
-						pages = [...data];
-					});
-			});
-	});
+  import { onMount } from "svelte";
+  import { supabase } from "$lib/supabaseClient.js";
+	import SvelteMarkdown from "svelte-markdown";
+	import CodeBlock from "$lib/components/code-block.svelte";
+  import { page } from "$app/stores";
+  let pathName = "";
+  let category = "";
+  let curPage = "";
+  export let data;
+  let { pages } = data;
+  $: ({ pages } = data); // so it stays in sync when `data` changes
+  function titleCase(str) {
+    str = str.toLowerCase();
+    str = str.split(" ");
+    for (var i = 0; i < str.length; i++) {
+      str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+    }
+    return str.join(" ");
+  }
+  page.subscribe(() => {
+    pathName = $page.url.pathname;
+    category = pathName.split("/")[1];
+    curPage = pathName.split("/")[2];
+    console.log(category);
+  });
 </script>
 
 {#each pages as page}
-	<h2>{page.title}</h2>
-	<p>{page.content}</p>
+  {#if page.category}
+    {#if page.category.title.toLowerCase() == category.replace("-", " ") && !page.section && curPage == page.slug}
+      <h2>{page.title}</h2>
+  
+	  <article class="postContent">
+		<SvelteMarkdown source={page.content} renderers={{ code: CodeBlock }} />
+	  </article>{/if}
+  {/if}
 {/each}

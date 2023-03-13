@@ -122,7 +122,6 @@ body {
 
 .postContent {
 	max-width: min(1000px, 80vw);
-	margin: auto;
 }
 
 .postMetadata {

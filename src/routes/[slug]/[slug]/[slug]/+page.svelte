@@ -1,52 +1,41 @@
 <script>
 	import { onMount } from "svelte";
 	import { supabase } from "$lib/supabaseClient.js";
+	import SvelteMarkdown from "svelte-markdown";
+	import CodeBlock from "$lib/components/code-block.svelte";
 	import { page } from "$app/stores";
 	let pathName = "";
-	page.subscribe(() => {
-		pathName = $page.url.pathname;
-		console.log(pathName);
-	});
-	var pages = [];
-	var error;
-	var categoryId = [];
-	var sectionId = [];
+	let category = "";
+	let section = "";
+  let curPage = "";
+	export let data;
+	let { pages } = data;
+	$: ({ pages } = data); // so it stays in sync when `data` changes
 	function titleCase(str) {
-		str = str.toLowerCase();
-		str = str.split(" ");
-		for (var i = 0; i < str.length; i++) {
-			str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-		}
-		return str.join(" ");
+	  str = str.toLowerCase();
+	  str = str.split(" ");
+	  for (var i = 0; i < str.length; i++) {
+		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+	  }
+	  return str.join(" ");
 	}
-	onMount(async () => {
-		supabase
-			.from("categories")
-			.select("id")
-			.eq("slug", pathName.split("/")[1])
-			.then(({ data, error, status }) => {
-				categoryId = data[0].id;
-				supabase
-					.from("sections")
-					.select("id")
-					.eq("slug", pathName.split("/")[2])
-					.then(({ data, error, status }) => {
-						sectionId = data[0].id;
-						supabase
-							.from("pages")
-							.select()
-							.eq("category", categoryId)
-							.eq("section", sectionId)
-							.eq("slug", pathName.split("/")[3])
-							.then(({ data, error, status }) => {
-								pages = [...data];
-							});
-					});
-			});
+	page.subscribe(() => {
+	  pathName = $page.url.pathname;
+	  category = pathName.split("/")[1];
+	  section = pathName.split("/")[2];
+	  curPage = pathName.split("/")[3];
+	  console.log(category, section)
 	});
-</script>
-
-{#each pages as page}
-	<h2>{page.title}</h2>
-	<p>{page.content}</p>
-{/each}
+  </script>
+  
+  {#each pages as page}
+	{#if page.category && page.section}
+	  {#if page.category.title.toLowerCase() == category.replace("-", " ") && page.section.title.toLowerCase() == section.replace("-", " ") && curPage == page.slug}
+		<h2>{page.title}</h2>
+  
+		<article class="postContent">
+		  <SvelteMarkdown source={page.content} renderers={{ code: CodeBlock }} />
+		</article>{/if}
+	{/if}
+  {/each}
+  

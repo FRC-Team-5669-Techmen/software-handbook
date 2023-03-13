@@ -21,12 +21,16 @@
 		pathName = pathName.join("/")
 		console.log(pathName);
 	});
+	
+	export let data;
+  let { pages, sections, categories } = data;
+  $: ({ pages, sections, categories } = data); // so it stays in sync when `data` changes
 </script>
 
 <svelte:window bind:innerWidth={y} />
 <div id="container">
 	{#if y > breakpoint}
-		<Sidebar {breakpoint} {y} {open} />
+		<Sidebar {data} {breakpoint} {y} {open} />
 	{/if}
 	<main class="main">
 		<p style="color: var(--lightGray); font-weight: bold; margin-bottom: 0">{pathName}</p>
@@ -34,10 +38,11 @@
 		<Footer />
 	</main>
 	{#if y <= breakpoint}
-		<Sidebar {breakpoint} {y} {open} />
+		<Sidebar {data} {breakpoint} {y} {open} />
 	{/if}
 </div>
-<Header {breakpoint} {y} on:click={handleHamburgerClick} />
+
+<Header {breakpoint} {y} on:click={handleHamburgerClick} {open} />
 
 <style>
 	#container {

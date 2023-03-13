@@ -1,44 +1,30 @@
 <script>
-	import { onMount } from "svelte";
-	import { supabase } from "$lib/supabaseClient.js";
 	import { page } from "$app/stores";
+	import SvelteMarkdown from "svelte-markdown";
+	import CodeBlock from "$lib/components/code-block.svelte";
+	import { onMount } from "svelte";
 	let pathName = "";
+	let curPage = ""
 	page.subscribe(() => {
-		pathName = $page.url.pathname;
-		console.log(pathName);
+	  pathName = $page.url.pathname;
+	  console.log(pathName);
 	});
-	var pages = [];
-	var error;
-	var categoryId = [];
-	function titleCase(str) {
-		str = str.toLowerCase();
-		str = str.split(" ");
-		for (var i = 0; i < str.length; i++) {
-			str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-		}
-		return str.join(" ");
-	}
-	onMount(async () => {
-		supabase
-			.from("categories")
-			.select("id")
-			.eq("slug", pathName.split("/")[1])
-			.then(({ data, error, status }) => {
-				categoryId = data[0].id;
-				supabase
-					.from("pages")
-					.select()
-					.eq("category", categoryId)
-					.is("section", null)
-					.eq("slug", "/")
-					.then(({ data, error, status }) => {
-						pages = [...data];
-					});
-			});
-	});
-</script>
-
-{#each pages as page}
-	<h1>{page.title}</h1>
-	<p>{page.content}</p>
-{/each}
+  
+	export let data;
+	let { pages } = data;
+	$: ({ pages } = data); // so it stays in sync when `data` changes
+	onMount(e=>{
+		curPage = pathName.split("/")[1];
+	})
+  </script>
+  
+  {#each pages as page}
+	{#if !page.category && !page.section && curPage == page.slug}
+	  <h1>{page.title}</h1>
+  
+	  <article class="postContent">
+		<SvelteMarkdown source={page.content} renderers={{ code: CodeBlock }} />
+	  </article>
+	{/if}
+  {/each}
+  
