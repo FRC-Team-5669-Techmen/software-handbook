@@ -6,7 +6,6 @@
   let pathName = "";
   page.subscribe(() => {
     pathName = $page.url.pathname;
-    console.log(pathName);
   });
 
   export let data;

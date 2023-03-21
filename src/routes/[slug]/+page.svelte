@@ -5,21 +5,24 @@
   import { onMount } from "svelte";
   let pathName = "";
   let curPage = "";
-  page.subscribe(() => {
-    pathName = $page.url.pathname;
-    console.log(pathName);
-  });
 
   export let data;
   let { pages } = data;
   $: ({ pages } = data); // so it stays in sync when `data` changes
   let currentPage = {title: ""};
-  onMount((e) => {
+  function mount() {
     curPage = pathName.split("/")[1];
     pages.forEach((element) => {
       if (!element.category && !element.section && curPage == element.slug)
         currentPage = element;
     });
+
+  }
+  page.subscribe(() => {
+    pathName = $page.url.pathname;
+  });
+  onMount((e) => {
+    mount()
   });
 </script>
 

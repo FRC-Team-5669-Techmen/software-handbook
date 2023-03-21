@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { supabase } from "$lib/supabaseClient.js";
   import SvelteMarkdown from "svelte-markdown";
   import CodeBlock from "$lib/components/code-block.svelte";
   import { page } from "$app/stores";
@@ -12,7 +11,7 @@
   let { pages } = data;
   $: ({ pages } = data); // so it stays in sync when `data` changes
   let currentPage = { title: "" };
-  onMount((e) => {
+  function mnt(){
     pages.forEach((element) => {
       if (element.category && element.section) {
         if (
@@ -24,13 +23,15 @@
         }
       }
     });
-  });
+
+  }
+  onMount(mnt);
   page.subscribe(() => {
     pathName = $page.url.pathname;
     category = pathName.split("/")[1];
     section = pathName.split("/")[2];
     curPage = pathName.split("/")[3];
-    console.log(category, section);
+    mnt()
   });
 </script>
 

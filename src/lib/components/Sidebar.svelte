@@ -14,10 +14,13 @@
   let pathName = "";
   page.subscribe(() => {
     pathName = $page.url.pathname;
-    console.log(pathName);
-    open = false;
   });
   let categoryData = {
+    Management: {
+      icon: RiDesignCompasses2Line,
+      open: true,
+      content: null,
+    },
     Software: {
       icon: RiDevelopmentCodeSSlashFill,
       open: true,
@@ -47,9 +50,10 @@
       }
     }
     if (!cat) return;
-    console.log(cat);
     categoryData[cat].open = true;
-    console.log(cat);
+  }
+  function toggleCategory(cat) {
+    categoryData[cat].open = !categoryData[cat].open;
   }
 
   let heightTransition = "";
@@ -77,7 +81,7 @@
             element.content.getBoundingClientRect().height + "px";
       }
     }
-    setCategory(capitalizeFirstLetter(pathName.split("/")[1]) in categoryData? capitalizeFirstLetter(pathName.split("/")[1]) : null);
+    console.log(sections);
   });
 </script>
 
@@ -98,8 +102,7 @@
         <button
           id={categoryData[category.title].open ? "active-category" : ""}
           class="category-label"
-          on:click={() => setCategory(category.title)}
-          tabindex={categoryData[category.title].open ? "-1" : ""}
+          on:click={() => toggleCategory(category.title)}
         >
           <Icon
             src={categoryData[category.title].icon}
@@ -138,36 +141,38 @@
               {/if}{/if}
           {/each}
           {#each sections as section}
-            <h3 class="inner-margin">
-              {titleCase(section.title.replace("_", " "))}
-            </h3>
-            <div class="innerPages">
-              {#each pages as page}
-                {#if page.category && page.section}
-                  {#if page.category.title == category.title && page.section.title == section.title}
-                    <a
-                      class={"innerPage " +
-                        ("/" +
+            {#if section.chapter.title == category.title}
+              <h3 class="inner-margin">
+                {titleCase(section.title.replace("_", " "))}
+              </h3>
+              <div class="innerPages">
+                {#each pages as page}
+                  {#if page.category && page.section}
+                    {#if page.category.title == category.title && page.section.title == section.title}
+                      <a
+                        class={"innerPage " +
+                          ("/" +
+                            category.slug +
+                            "/" +
+                            section.slug +
+                            "/" +
+                            (page.slug != "/" ? page.slug : "") ==
+                          pathName
+                            ? "link-active"
+                            : "")}
+                        href={"/" +
                           category.slug +
                           "/" +
                           section.slug +
                           "/" +
-                          (page.slug != "/" ? page.slug : "") ==
-                        pathName
-                          ? "link-active"
-                          : "")}
-                      href={"/" +
-                        category.slug +
-                        "/" +
-                        section.slug +
-                        "/" +
-                        (page.slug != "/" ? page.slug : "")}
-                      tabindex={categoryData[category.title].open ? "" : "-1"}
-                      >{page.title}</a
-                    >
-                  {/if}{/if}
-              {/each}
-            </div>
+                          (page.slug != "/" ? page.slug : "")}
+                        tabindex={categoryData[category.title].open ? "" : "-1"}
+                        >{page.title}</a
+                      >
+                    {/if}{/if}
+                {/each}
+              </div>
+            {/if}
           {/each}
         </div>
       {/each}
@@ -330,9 +335,14 @@
       margin: 0;
       overflow-y: scroll;
       padding: 30px;
-      padding-top: 100px;
+      padding-top: 120px;
       padding-bottom: 70px;
       mask-image: linear-gradient(to bottom, transparent 70px, black 105px);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 70px,
+        black 115px
+      );
     }
     #sidebar {
       position: fixed;

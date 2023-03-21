@@ -134,7 +134,7 @@ export const pageQuery = gql`
 `;
 export const categoriesQuery = gql`
   query GetCategories {
-    categories {
+    categories(orderBy: updatedAt_DESC) {
       title
 	  slug
     }
@@ -144,7 +144,10 @@ export const sectionsQuery = gql`
   query GetSections {
     sections {
       title
-	  slug
+      slug
+      chapter {
+        title
+      }
     }
   }
 `;

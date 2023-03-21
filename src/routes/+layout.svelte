@@ -2,6 +2,7 @@
 	import Header from "../lib/components/Header.svelte";
 	import Sidebar from "../lib/components/Sidebar.svelte";
 	import Footer from "../lib/components/Footer.svelte";
+	import logo from "$lib/logo-border.png"
 	import "../lib/styles/main.css";
 	import "../lib/styles/prism-theme.css";
 	import "../lib/styles/font.css";
@@ -10,7 +11,6 @@
 	let y;
 	let open = false;
 	function handleHamburgerClick() {
-		console.log("asdf");
 		open = !open;
 	}
     import { page } from '$app/stores';
@@ -18,14 +18,18 @@
 	page.subscribe(() => {
 		pathName = $page.url.pathname.split("/");
 		pathName.pop()
-		pathName = pathName.join("/")
-		console.log(pathName);
+		pathName = pathName.join("/");
+		open = false
 	});
 	
 	export let data;
   let { pages, sections, categories } = data;
   $: ({ pages, sections, categories } = data); // so it stays in sync when `data` changes
 </script>
+
+<svelte:head>
+  <link rel="icon" href={logo} />
+</svelte:head>
 
 <svelte:window bind:innerWidth={y} />
 <div id="container">
